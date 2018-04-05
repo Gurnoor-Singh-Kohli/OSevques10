@@ -115,7 +115,7 @@ int main(){
 	            // process
 	            queue1[shortest].c_t = global_time;
 	            finish_time = global_time + 1;
-	 			queue1[shortest].c_t = global_time;
+	 			queue1[shortest].c_t = global_time+1;
 			}
 				
 	           
@@ -144,7 +144,7 @@ int main(){
 					if(queue2[j].burst_time==0 && flag==1) 
 				    { 
 				    	bz++; 
-					  	queue2[j].c_t = global_time; 
+					  	queue2[j].c_t = global_time+1; 
 				      	flag=0; 
 				    }  
 					if(j==q2_count -1) 
@@ -163,6 +163,73 @@ int main(){
  
 			break;
 	}//process execution ended !!
+	
+	int avg_tat1=0;
+	int avg_tat2=0;
+	int avg_wt1=0;
+	int avg_wt2=0;
 
+	printf("\n\t\t\t********SCHEDULING COMPLETED********");
+	printf("\n\t\t\t********RESULTS INTERFACE********");
 
+	for(i=0;i<q1_count;i++){
+		queue1[i].ta_t=queue1[i].c_t - queue1[i].arival_time;
+	
+	}
+	
+	for(i=0;i<q2_count;i++){
+		queue2[i].ta_t=queue2[i].c_t - queue2[i].arival_time;
+	
+	}
+	
+	for(i=0;i<q2_count;i++){
+		queue2[i].w_t=queue2[i].ta_t - queue2[i].burst_time;
+	
+	}
+	
+	for(i=0;i<q1_count;i++){
+		queue1[i].w_t=queue1[i].ta_t - queue1[i].burst_time;
+	
+	}
+	
+	printf("\n\nPROCESS NAME |\t TURN AROUND TIME |\t WAITING TIME \n");
+	for(i=0;i<q1_count;i++){
+	printf(" %s             |\t\t%d         |\t\t%d \n",queue1[i].process_name,queue1[i].ta_t,queue1[i].w_t);
+	}
+	printf("\n---------------------------------***-----------------------------------\n");
+	for(j=0;j<q2_count;j++){
+	printf(" %s             |\t\t%d         |\t\t%d \n ",queue2[j].process_name,queue2[j].ta_t,queue2[j].w_t);
+	}
+	
+	printf("\n\t\t********AVERAGE T.A.T & AVERAGE WAITING TIME********");
+	
+	for(i=0;i<q1_count;i++){
+	
+		avg_tat1=avg_tat1+queue1[i].ta_t;
+	}
+	avg_tat1= (avg_tat1 / q1_count);
+	for(i=0;i<q2_count;i++){
+	
+		avg_tat2=avg_tat2+queue2[i].ta_t;
+	}
+	avg_tat2= (avg_tat2 / q2_count);
+	for(i=0;i<q2_count;i++){
+	
+		avg_wt2=avg_wt2+queue2[i].w_t;
+	}
+	avg_wt2= (avg_wt2 / q2_count);
+	for(i=0;i<q1_count;i++){
+	
+		avg_wt1=avg_wt1+queue1[i].w_t;
+	}
+	avg_wt1= (avg_wt1 / q1_count);
+	
+	printf("\n\nPROCESS NAME |\t AVERAGE TURN AROUND TIME |\t AVERAGE WAITING TIME \n");
+	printf(" %s             |\t\t%d         |\t\t%d \n",queue1[i].process_name,avg_tat1,avg_wt1);
+	printf(" %s             |\t\t%d         |\t\t%d \n",queue1[i].process_name,avg_tat2,avg_wt2);
+	printf("\n---------------------------------***-----------------------------------\n");
+	
+	
+	
+	
 }//end of main!
