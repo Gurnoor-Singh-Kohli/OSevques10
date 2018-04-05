@@ -31,21 +31,20 @@ void main()
 
 void inputResource_details(int b,int c)
 {	int x,y;
-	printf("Max requiredResourcesuirement of process %d ",b+1);
-
+	printf("Number Required Resource Reuirement of process %d : ",b+1);
 	scanf("%d",&x);
 
 	if(x>c)
 	{
-		printf("Sorry but requiredResourcesuirement cannot be greater than resources - enter again\n\n");
+		printf("\nRequired Resource Reuirement cannot be greater than resources!!! \n FATAL ERROR!! - \n Enter again  :\n\n");
 		scanf("%d",&x);
 
 	}
-	printf("Pre-pev_allocatedcation of process %d ",b+1);
+	printf("Pre-pev_allocation of process %d : ",b+1);
 	scanf("%d",&y);
 	if(y>x)
 	{
-		printf("No need to pev_allocatedcate more than requiredResourcesuirement -> making pev_allocatedcation = requiredResourcesuirement\n\n");
+		printf("\n\n ---* MAKING PREVIOUSLY ALLOCATED RESOURES = REQUIRED RESOURCES *--- \n\n");
 	  y=x;
 	}
 
@@ -53,18 +52,21 @@ void inputResource_details(int b,int c)
 	proc[b].pev_allocated=y;
 	proc[b].need=x-y;
 	avail_resources=avail_resources-y;
-	printf("%d",avail_resources);
+	printf("\nNmber of total remaining available resources : %d",avail_resources);
+	printf("\n***PROCESS %d CONFIGURED***\n\n",b+1);
 }
 
 void  analyseResource_safetyCheck_details(int d)
 {
 	int S_seq[d];
-	bool f[d]={0};
+	int f[d];
 	int count = 0,i;
-
+	for(i=0;i<d;i++){
+		f[i]=0;
+	}
 	while(count<d)
 	{
-		bool found = false;
+		bool flag = false;
 		for (i = 0; i < d; i++)
         {
         	if (f[i] == 0)
@@ -78,19 +80,21 @@ void  analyseResource_safetyCheck_details(int d)
 						proc[i].pev_allocated=0;
 						f[i]=1;
 						S_seq[count++] = i;
-						found=true;
+						flag=true;
 					}
 			}
 		}
-		if (found == false)
+		if (flag == false)
         {
-            printf("System not in safe state");
+            printf("\n\n ---* SYSTEM IS NOT IN SAFE STATE !! *--- \n\n");
         }
-	}
-  printf("System is in safe state");
+	} // end of while
+  printf("\n\n ---* SYSTEM IS IN SAFE STATE !! *--- \n\n");
+
+  printf("\nSequence of completion of processes : ");
   for(i=0;i<d;i++)
   {
-  	printf("%d",S_seq[i]+1);
+  	printf("%d -> ",S_seq[i]+1);
   }
 }
 
@@ -107,6 +111,6 @@ void analyseResource_details(int e,int f)
 	}
 	else
 	{
-		printf("System is in unsafe state");
+		printf("\n\n ---* SYSTEM IS IN UNSAFE STATE !! *--- \n\n");
 	}
 }
