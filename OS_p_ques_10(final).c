@@ -30,6 +30,7 @@ int main(){
 	
 	while(count < n)
 	{
+		write(1,"\nDisclaimer for the user! - Enter a good mix of processes (Type 0 / Type 1)",76);
 		write(1,"\nEnter name of the process               : ",44);
 		//read(0,processes[count].process_name,15);
 		scanf("%s",&processes[count].process_name);
